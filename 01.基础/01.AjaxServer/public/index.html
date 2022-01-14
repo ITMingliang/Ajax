@@ -9,19 +9,35 @@
 <body>
     <script type="text/javascript">
     //1.创建Ajax对象
-    var xhr=new XMLHttpRequest();
+    var xhr;
+    if (window.XMLHttpRequest) {
+        xhr = new XMLHttpRequest();                //创建XMLHttpRequest对象
+     } else {
+        xhr = ActiveXObject('Microsoft.XMLHTTP');   //支持IE5,IE6
+     }
+
 
     //2.告诉Ajax对象要向哪里发送请求，以什么方式发送请求
-    //(1):请求方式; (2):请求地址
+    // open 方法有三个参数，分别是 method, url, async, 代表如下意思：
+    // method ：规定请求的类型，有 GET 和 POST 两种
+    // url ：请求的服务器文件的 url 
+    // async ：规定是否异步处理请求，true（异步）或 false（同步）
+    
     xhr.open('get','http://localhost:3000/test');
 
     //3.发送请求
     xhr.send();
 
-    //4.获取服务器相应到客户端的数据
+    //4.监听获取服务器相应到客户端的数据
     xhr.onload=function(){
         
-       //将json对象转为json对象
+        //如需获得来自服务器的响应，请使用 XMLHttpRequest 对象的 responseText 或 responseXML 属性。
+        //如果来自服务器的响应并非 XML，请使用 responseText 属性。
+        //如果来自服务器的响应是 XML，而且需要作为 XML 对象进行解析，请使用 responseXML 属性。
+        console.log(xhr.responseText);
+        console.log(typeof xhr.responseText);
+
+       //将string对象转为json的Object对象
        var resposeTxt=JSON.parse(xhr.responseText);
         //输出到控制台
        console.log(resposeTxt);

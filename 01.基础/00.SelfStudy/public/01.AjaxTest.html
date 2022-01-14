@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+</head>
+<body>
+
+    <script type="text/javascript">
+        function ajaxFunction() {
+            var xmlHttp;
+            try {
+                // Firefox, Opera 8.0+, Safari
+                xmlHttp = new XMLHttpRequest();
+            }
+            catch (e) {
+                // Internet Explorer
+                //Microsoft 浏览器 Internet Explorer 使用 MSXML 解析器处理 XML
+                try {
+                   //较新版本的 Microsoft 浏览器创建 Microsoft 兼容的对象
+                    xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+                }
+                catch (e) {
+
+                    try {
+                       //较老版本的 Microsoft 浏览器创建 Microsoft 兼容的对象
+                        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    catch (e) {
+                        alert("您的浏览器不支持AJAX！");
+                        return false;
+                    }
+                }
+            }
+
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4) {
+                    document.myForm.time.value = xmlHttp.responseText;
+                }
+            }
+
+            //get
+            // xmlHttp.open("GET", "/TimeHandler.ashx", true);
+            // //不使用缓存
+            // xmlHttp.setRequestHeader("if-modified-since", "0");
+            // xmlHttp.send(null);
+
+            //post
+            xmlHttp.open("POST", "/TimeHandler.ashx", true);
+            //设置请求内容类型
+            xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xmlHttp.send("key1=value1&key2=value2")
+
+        }
+    </script>
+
+    <form name="myForm">
+        用户: <input type="text" name="username" onkeyup="ajaxFunction();" />
+        时间: <input type="text" name="time" />
+    </form>
+
+</body>
+</html>
