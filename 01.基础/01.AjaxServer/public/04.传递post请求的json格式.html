@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<style>
+</style>
+<body>
+    <p>
+        <input type="text" id="username"/>
+    </p>
+
+    <p>
+        <input type="text" id="age"/>
+    </p>
+
+    <p>
+        <input type="button" value="提交" id="btn"/>
+    </p>
+    <script >
+    //获取按钮元素
+     var btn=document.getElementById('btn');
+
+     var username=document.getElementById('username');
+     var age =document.getElementById('age');
+     //添加点击事件
+     btn.onclick=function(){
+    //1.创建Ajax对象
+    var xhr=new XMLHttpRequest();
+
+    var nameValue=username.value;
+    var ageValue=age.value;
+
+    //Ajax 中参数要自己拼接
+    var params='username=' + nameValue +'&age='+ ageValue;
+    //2.配置Ajax对象
+    xhr.open('post','http://localhost:3000/json');
+    //3.设置请求参数格式的类型(post中必须要进行设置的)
+    xhr.setRequestHeader('Content-Type','application/json');//json固定格式
+    //4.发送请求
+        //----发送的内容必须为字符串，所以需要把json对象转为json字符串
+    xhr.send(JSON.stringify({name:'Miracle',age:18}));
+    //5.获取服务器端响应的数据
+    xhr.onload=function(){
+        console.log(xhr.responseText);
+    }
+
+     }
+    </script>
+</body>
+</html>

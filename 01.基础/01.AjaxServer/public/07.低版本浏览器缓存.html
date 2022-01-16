@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<style>
+</style>
+
+<body>
+    <button id='btn'>发送Ajax请求</button>
+    <script>
+        var btn =document.getElementById('btn');
+        btn.onclick=function(){
+            
+            //1.创建Ajax对象
+            var xhr=new XMLHttpRequest();
+            //2.配置Ajax对象
+            //xhr.open('get','http://localhost:3000/cache');
+            xhr.open('get','http://localhost:3000/cache?t='+ Math.random());
+            //3.发送请求
+            xhr.send();
+            //4.获取服务器端响应的数据
+            //低版本浏览器不支持onload事件
+            xhr.onreadystatechange=function(){
+              
+                if(xhr.readyState==4 && xhr.status==200){
+                   alert(xhr.responseText);
+                }
+            }
+
+            //解决方案：
+            //  在请求地址的后面添加请求参数，保证每次请求中的请求参数的值不相同
+           
+        }
+
+    </script>
+</body>
+
+</html>
+
+
+<!-- 
+    Ajax状态码： 表示Ajax请求的过程状态，Ajax对象返回,xhr.readyState==4为正常
+    Http状态码：表示请求的处理结果，是服务端返回，xhr.status==200为正常
+
+ -->

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FormData</title>
+</head>
+
+<style>
+</style>
+
+<body>
+    <!-- 创建普通的HTML表单 -->
+    <form id='form'>
+        <!-- 必须有name属性，作为提交表单的属性名 -->
+        <input type="text" name="username">
+        <input type="password" name="password">
+        <!-- type为submit类型，当点击会有默认的提交行为，所以改为button -->
+        <input type="button"  id="btn" value="提交">
+    </form>
+    <script>
+        //获取按钮
+        var btn =document.getElementById('btn');
+        //获取表单
+        var form =document.getElementById('form');
+        //为按钮添加点击事件
+        btn.click=function(){
+            //将普通html表单转换为表单对象
+            var FormData=new FormData(form);
+            //创建ajax对象
+            var xhr=new XMLHttpRequest();
+            //配置Ajax对象
+            xhr.open('post','http://localhost:3000/formData');
+            //发送Ajax请求
+            xhr.send(FormData);
+            //监听xhr的对象Onload事件
+            xhr.onload=function(){
+                //对http状态码进行判断
+                if(xhr.status=200){
+                    console.log(xhr.responseText);
+                }
+            }
+
+        }
+    </script>
+</body>
+
+</html>

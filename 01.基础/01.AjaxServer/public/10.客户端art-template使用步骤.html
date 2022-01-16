@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 1.引入模板引擎库文件 -->
+    <script  src="js/template-web.js"></script>
+    <title></title>
+</head>
+
+<style>
+</style>
+
+<body>
+    <div id='container'></div>
+    <!-- 2.准备art-template模板 -->
+    <script type="text/html" id='tp1'>
+        <h1>username：{{username}}  age：{{age}}</h1>
+    </script>
+    <!-- 3.告诉模板引擎将哪个数据和哪个模板进行拼接 -->
+    <script>
+        //1.模板id 2.数据：对象类型
+        //拼接好的返回值就是拼接好的字符串
+      var html=  template('tp1',{username:'孙悟空',age:1300});//art-template中提供方法
+      console.log(html);
+      document.getElementById('container').innerHTML=html;
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>验证邮箱的地址是否已经注册</title>
+    <link rel="stylesheet"  href="./assets/bootstrap/dist/css/bootstrap.min.css"/>
+    <style type='text/css'>
+        p:not(:empty){
+            padding: 15px;
+        }
+        .container{
+            padding-top: 100px;
+        }
+     </style>
+</head>
+<body>
+    <div class="container">
+        <label for="email">邮箱地址</label>
+        <input id="email"  type="email" class="form-control" placeholder="请输入邮箱地址"/>
+
+    </div>
+    <!-- 错误 bg-danger 正确 bg-sucess -->
+    <p id="info"></p>
+    <script src="./js/ajax.js"></script>
+    <script>
+        var emailInput=document.getElementById('email');
+        var info=document.getElementById('info');
+
+        //添加离开焦点事件
+        emailInput.onblur=function(){
+            //获取邮箱输入框的值
+           var email=this.value;
+           //验证邮箱的正则
+           var reg = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+           //验证
+           if( !reg.test(email)){
+            //给出提示信息
+            info.innerHTML='请输入符合规则的邮箱地址';
+            //添加样式类名，错误样式
+            info.className='bg-danger';
+            //阻止程序向下执行
+            return;
+           }
+           //向服务器短发送请求
+           ajax({
+               type:'get',
+               url:'http://localhost:3000/verifyEmailAdress',
+               data:{
+                   email:email
+               },
+               success:function(result){
+                   info.innerHTML=result.message;
+                   info.className='bg-success';
+               },
+               error:function(result){
+                    info.innerHTML=result.message;
+                    info.className='bg-danger';
+               },
+               
+
+           });
+        }
+    </script>
+</body>
+
+</html>
