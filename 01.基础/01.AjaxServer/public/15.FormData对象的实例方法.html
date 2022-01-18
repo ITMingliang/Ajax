@@ -28,8 +28,29 @@
         btn.onclick=function(){
             //将普通html表单转换为表单对象
             var formData = new FormData(form);
+
+            /*
+            get('key') 获取表单属性的值
+            */
+           console.log(formData.get('username'));
+
+           /*
+           set('key','value') 设置表单对象的值   
+           如果表单对象存在，则会更新覆盖原有值
+           如果表单对象不存在，则会新增创建这个表单属性吧 
+           */
+           formData.set('username','孙悟空');
+           formData.append('username','猪八戒');//保留，不会覆盖
+           formData.set('age',18);
+
+           /*
+           删除表单对象属性值
+           delete('key')
+           */
+          formData.delete('password');
+
             //创建ajax对象
-            var xhr=new XMLHttpRequest();
+            var xhr = new XMLHttpRequest();
             //配置Ajax对象
             xhr.open('post','http://localhost:3000/formData');
             //发送Ajax请求
@@ -41,6 +62,17 @@
                     console.log(xhr.responseText);
                 }
             }
+
+            /*
+          向表单对象中追加值
+          append('key','value');
+          */
+         var f=new FormData();
+         f.append('sex','男');
+         f.append('sex','女');
+         console.log(f.get('sex'));
+         //输出formData对象
+         console.log(formData);
 
         }
     </script>

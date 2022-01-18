@@ -9,6 +9,8 @@ const fs=require('fs');
 //2.引入路径处理模块
 const path=require('path');
 const bodyParser=require('body-parser');//post
+//引入formidable
+const formidable=require('formidable');//post
 
 //3.创建web服务器
 const app=express();
@@ -157,6 +159,16 @@ app.get('/areas',(request,response)=>{
     response.send(data)
     } 
 // 其他城市的就不写进行测试了，实际项目中还维护到数据库中，然后从数据库查询带出
+});
+
+
+app.post('/formData',(request,response)=>{
+    //创建formidable表单解析对象
+    const form =new formidable.IncomingForm();
+    //解析客户端传递过来的FormData对象
+    form.parse(request,(err,fields,files) => {
+        response.send(fields);
+    });
 });
 
 
